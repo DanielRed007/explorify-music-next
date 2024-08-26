@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import counterReducer from "./slices/counterSlice";
+import spotifyClientReducer from "./slices/spotifyClientSlice";
 
 const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    spotiFyClient: spotifyClientReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
 });
