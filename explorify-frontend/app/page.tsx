@@ -47,19 +47,44 @@ export default function Home() {
                   />
                 </div>
               </h1>
-              <h2 className='text-4xl text-black text-gray-800 font-semibold mb-2'>
+              <h2 className='text-2xl text-gray-800 font-light mb-2'>
                 Explore the magic of Spotify
               </h2>
               <hr className='border-t-2 border-gray-800 mb-4' />
-              <p className='mb-2 text-gray-800'>
-                This is the first line of the paragraph. It provides some
-                introductory text or context about the banner.
-              </p>
-              <p className='mb-2 text-gray-800'>
+              {/* <p className='mb-2 text-gray-800'>
+                Explore this 
+              </p> */}
+              {/* <p className='mb-2 text-gray-800'>
                 This is the second line of the paragraph. It offers additional
                 information or a call to action, encouraging users to engage
                 with the content.
-              </p>
+              </p> */}
+              <div>
+                {profile && (
+                  <div className='rounded-md bg-gray-700 flex flex-col md:flex-row items-center justify-between p-4'>
+                    <div className='flex-1'>
+                      <h1 className='text-5xl text-gray-200 font-bold'>
+                        {profile?.display_name}
+                      </h1>
+                      <h1 className='text-xl text-gray-200 font-light mb-2 mt-2'>
+                        Followers: {profile?.followers?.total}
+                      </h1>
+                    </div>
+
+                    {profile?.images && profile.images[1] && (
+                      <div className='flex-shrink-0 ml-4'>
+                        <Image
+                          src={profile.images[1].url}
+                          alt={`${profile?.display_name}'s profile picture`}
+                          width={150}
+                          height={150}
+                          className='rounded-full'
+                        />
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
