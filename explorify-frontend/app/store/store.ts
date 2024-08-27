@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import spotifyClientReducer from "./slices/spotifyClientSlice";
+import userSliceReducer from "./slices/userSlice";
 
 const store = configureStore({
   reducer: {
     spotiFyClient: spotifyClientReducer,
+    user: userSliceReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
 });
