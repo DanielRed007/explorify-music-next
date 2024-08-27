@@ -8,7 +8,7 @@ interface UserProfile {
 }
 
 interface UserState {
-  profile: UserProfile | null;
+  profile: any;
   userLoading: boolean;
   userError: string | null;
 }
