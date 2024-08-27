@@ -2,14 +2,14 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 
 interface SpotifyClientState {
   accessToken: string | null;
-  loading: boolean;
-  error: string | null;
+  clientLoading: boolean;
+  clientError: string | null;
 }
 
 const initialState: SpotifyClientState = {
   accessToken: null,
-  loading: false,
-  error: null,
+  clientLoading: false,
+  clientError: null,
 };
 
 export const fetchSpotifyToken = createAsyncThunk(
@@ -42,27 +42,27 @@ const spotifyClientSlice = createSlice({
   reducers: {
     resetToken: (state) => {
       state.accessToken = null;
-      state.error = null;
+      state.clientError = null;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchSpotifyToken.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.clientLoading = true;
+        state.clientError = null;
       })
       .addCase(
         fetchSpotifyToken.fulfilled,
         (state, action: PayloadAction<string>) => {
-          state.loading = false;
+          state.clientLoading = false;
           state.accessToken = action.payload;
         }
       )
       .addCase(
         fetchSpotifyToken.rejected,
         (state, action: PayloadAction<any>) => {
-          state.loading = false;
-          state.error = action.payload;
+          state.clientLoading = false;
+          state.clientError = action.payload;
         }
       );
   },
