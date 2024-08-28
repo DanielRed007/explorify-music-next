@@ -1,20 +1,31 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { SpotifyUser } from "@/app/interface/user";
 
-interface UserProfile {
-  id: string;
-  name: string;
-  email: string;
-}
+const initialSpotifyUserState: SpotifyUser = {
+  display_name: "",
+  external_urls: {
+    spotify: "",
+  },
+  href: "",
+  id: "",
+  images: [],
+  type: "",
+  uri: "",
+  followers: {
+    href: null,
+    total: 0,
+  },
+};
 
 interface UserState {
-  profile: any;
+  profile: SpotifyUser;
   userLoading: boolean;
   userError: string | null;
 }
 
 const initialState: UserState = {
-  profile: null,
+  profile: initialSpotifyUserState,
   userLoading: false,
   userError: null,
 };
@@ -58,8 +69,8 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    resetUserProfile: (state) => {
-      state.profile = null;
+    resetUserProfile: (state: any) => {
+      state.profile = initialState;
       state.userError = null;
     },
   },
@@ -71,7 +82,7 @@ const userSlice = createSlice({
       })
       .addCase(
         fetchUserProfile.fulfilled,
-        (state, action: PayloadAction<UserProfile>) => {
+        (state, action: PayloadAction<SpotifyUser>) => {
           state.userLoading = false;
           state.profile = action.payload;
         }
