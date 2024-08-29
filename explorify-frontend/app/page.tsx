@@ -6,11 +6,15 @@ import {
   fetchSpotifyToken,
   resetToken,
 } from "./store/slices/spotifyClientSlice";
-import { fetchUserProfile } from "./store/slices/userSlice";
+import {
+  fetchUserProfile,
+  fetchUserTopArtists,
+} from "./store/slices/userSlice";
 import { AppDispatch, RootState } from "./store/store";
 import Image from "next/image";
 import { UserCard } from "./components/user/UserCard";
 import { Loader } from "./components/shared/Loader";
+import Link from "next/link";
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
@@ -28,6 +32,7 @@ export default function Home() {
   useEffect(() => {
     if (accessToken && !clientLoading) {
       dispatch(fetchUserProfile());
+      dispatch(fetchUserTopArtists());
     }
   }, [dispatch, accessToken, clientLoading]);
 
@@ -57,7 +62,9 @@ export default function Home() {
             </div>
           </div>
 
-          <div className='rounded-md bg-green-500 p-4 text-white'>02</div>
+          <div className='rounded-md bg-green-500 p-4 text-white'>
+            <Link href='/api/auth/login'>Login</Link>
+          </div>
           <div className='rounded-md bg-green-500 p-4 text-white'>03</div>
 
           <div className='rounded-md bg-green-500 p-4 text-white'>04</div>
