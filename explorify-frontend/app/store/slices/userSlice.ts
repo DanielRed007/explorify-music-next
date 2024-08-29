@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { SpotifyUser } from "@/app/interface/user";
+import axios from "axios";
 
 const initialSpotifyUserState: SpotifyUser = {
   display_name: "",
@@ -20,12 +21,16 @@ const initialSpotifyUserState: SpotifyUser = {
 
 interface UserState {
   profile: SpotifyUser;
+  topArtists: null;
+  topArtistsLoading: boolean;
   userLoading: boolean;
   userError: string | null;
 }
 
 const initialState: UserState = {
   profile: initialSpotifyUserState,
+  topArtists: null,
+  topArtistsLoading: false,
   userLoading: false,
   userError: null,
 };
@@ -65,6 +70,56 @@ export const fetchUserProfile = createAsyncThunk(
   }
 );
 
+export const fetchUserTopArtists = createAsyncThunk(
+  "user/fetchTopArtists",
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const state = getState() as RootState;
+
+      const accessToken = state.spotiFyClient.accessToken;
+
+      if (!accessToken) {
+        return rejectWithValue("Access Token is not available");
+      }
+
+      if (accessToken) {
+        axios
+          .get("https://api.spotify.com/v1/me", {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+
+      // const response = await fetch(
+      //   `https://api.spotify.com/v1/me/top/artists`,
+      //   {
+      //     method: "GET",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: `Bearer ${accessToken}`,
+      //     },
+      //   }
+      // );
+
+      // if (!response.ok) {
+      //   throw new Error("Failed to fetch user profile");
+      // }
+
+      // const data = await response.json();
+      // return data;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -91,6 +146,24 @@ const userSlice = createSlice({
         fetchUserProfile.rejected,
         (state, action: PayloadAction<any>) => {
           state.userLoading = false;
+          state.userError = action.payload;
+        }
+      )
+      .addCase(fetchUserTopArtists.pending, (state) => {
+        state.topArtistsLoading = true;
+        state.userError = null;
+      })
+      .addCase(
+        fetchUserTopArtists.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.topArtistsLoading = false;
+          state.topArtists = action.payload;
+        }
+      )
+      .addCase(
+        fetchUserTopArtists.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.topArtistsLoading = false;
           state.userError = action.payload;
         }
       );
