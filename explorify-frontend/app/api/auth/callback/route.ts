@@ -7,11 +7,23 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const code = searchParams.get("code");
 
+  const redirectUri = process.env.SPOTIFY_REDIRECT_URI;
+
+  if (!redirectUri) {
+    console.error("Redirect URI is not set in environment variables");
+    return NextResponse.json(
+      { error: "Redirect URI not configured" },
+      { status: 500 }
+    );
+  }
+
+  console.log("Using Redirect URI:", redirectUri); // Debugging statement
+
   const tokenUrl = "https://accounts.spotify.com/api/token";
   const data = querystring.stringify({
     grant_type: "authorization_code",
     code: code,
-    redirect_uri: process.env.SPOTIFY_REDIRECT_URI!,
+    redirect_uri: redirectUri,
   });
 
   try {
@@ -20,17 +32,19 @@ export async function GET(req: NextRequest) {
         Authorization:
           "Basic " +
           Buffer.from(
-            `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
+            `${process.env.WEB_SPOTIFY_API_CLIENT_ID}:${process.env.WEB_SPOTIFY_API_CLIENT_SECRET}`
           ).toString("base64"),
         "Content-Type": "application/x-www-form-urlencoded",
       },
     });
 
-    const { access_token, refresh_token, expires_in } = response.data;
+    const { access_token, refresh_token } = response.data;
 
-    return NextResponse.redirect(
-      `/dashboard?access_token=${access_token}&refresh_token=${refresh_token}`
-    );
+    // Construct the absolute URL for the redirect
+    const redirectUrl = `${process.env.NEXTAUTH_URL}/dashboard?access_token=${access_token}&refresh_token=${refresh_token}`;
+    console.log("Redirecting to:", redirectUrl); // For debugging purposes
+
+    return NextResponse.redirect(redirectUrl); // Use absolute URL
   } catch (error) {
     console.error("Error exchanging code for tokens", error);
     return NextResponse.json(

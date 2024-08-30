@@ -16,20 +16,7 @@ export const fetchSpotifyToken = createAsyncThunk(
   "spotifyClient/fetchToken",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch("/api/spotify", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch token");
-      }
-
-      const data = await response.json();
-
-      return data.access_token;
+      return "fetchToken";
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
