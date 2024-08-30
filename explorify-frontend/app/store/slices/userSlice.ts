@@ -19,13 +19,13 @@ const initialSpotifyUserState: SpotifyUser = {
 };
 
 interface UserState {
-  profile: SpotifyUser;
+  profile: string;
   userLoading: boolean;
   userError: string | null;
 }
 
 const initialState: UserState = {
-  profile: initialSpotifyUserState,
+  profile: "Profile",
   userLoading: false,
   userError: null,
 };
@@ -34,31 +34,7 @@ export const fetchUserProfile = createAsyncThunk(
   "user/fetchProfile",
   async (_, { getState, rejectWithValue }) => {
     try {
-      const state = getState() as RootState;
-
-      const accessToken = state.spotiFyClient.accessToken;
-
-      if (!accessToken) {
-        return rejectWithValue("Access Token is not available");
-      }
-
-      const response = await fetch(
-        `https://api.spotify.com/v1/users/21tqr4elj6xgvzcp2qmrmnjry`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch user profile");
-      }
-
-      const data = await response.json();
-      return data;
+      return "Fetch Profile";
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -82,7 +58,7 @@ const userSlice = createSlice({
       })
       .addCase(
         fetchUserProfile.fulfilled,
-        (state, action: PayloadAction<SpotifyUser>) => {
+        (state, action: PayloadAction<string>) => {
           state.userLoading = false;
           state.profile = action.payload;
         }
