@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { RootState } from "../store";
 import { SpotifyUser } from "@/app/interface/user";
+import { axiosRequest, getAccessToken } from "@/app/utils/auth/auth.utils";
 
 const initialSpotifyUserState: SpotifyUser = {
   display_name: "",
@@ -19,13 +19,13 @@ const initialSpotifyUserState: SpotifyUser = {
 };
 
 interface UserState {
-  profile: string;
+  profile: SpotifyUser;
   userLoading: boolean;
   userError: string | null;
 }
 
 const initialState: UserState = {
-  profile: "Profile",
+  profile: initialSpotifyUserState,
   userLoading: false,
   userError: null,
 };
@@ -34,9 +34,19 @@ export const fetchUserProfile = createAsyncThunk(
   "user/fetchProfile",
   async (_, { getState, rejectWithValue }) => {
     try {
-      return "Fetch Profile";
+      const accessToken = getAccessToken();
+
+      const response = await axiosRequest(
+        "https://api.spotify.com/v1/me",
+        "get",
+        {
+          Authorization: `Bearer ${accessToken}`,
+        }
+      );
+
+      return response.data;
     } catch (error: any) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error);
     }
   }
 );
@@ -58,7 +68,7 @@ const userSlice = createSlice({
       })
       .addCase(
         fetchUserProfile.fulfilled,
-        (state, action: PayloadAction<string>) => {
+        (state, action: PayloadAction<SpotifyUser>) => {
           state.userLoading = false;
           state.profile = action.payload;
         }
