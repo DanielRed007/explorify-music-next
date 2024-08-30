@@ -9,14 +9,9 @@ import Header from "./components/shared/Header";
 
 const ubuntuMono = Ubuntu_Mono({
   subsets: ["latin"],
-  weight: ["400", "700"], // Specify the font weights you need
-  variable: "--font-ubuntu-mono", // Optional: define a CSS variable for the font
+  weight: ["400", "700"],
+  variable: "--font-ubuntu-mono",
 });
-
-// export const metadata: Metadata = {
-//   title: "Explorify Music",
-//   description: "Discover the world of Spotify",
-// };
 
 export default function RootLayout({
   children,
@@ -27,8 +22,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={ubuntuMono.className}>
         <Provider store={store}>
-          <Header />
-          <main className='p-4'>{children}</main>
+          <main className=''>{children}</main>
         </Provider>
       </body>
     </html>

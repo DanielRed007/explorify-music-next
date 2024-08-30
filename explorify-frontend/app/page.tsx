@@ -2,19 +2,8 @@
 
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchSpotifyToken,
-  resetToken,
-} from "./store/slices/spotifyClientSlice";
-import {
-  fetchUserProfile,
-  fetchUserTopArtists,
-} from "./store/slices/userSlice";
 import { AppDispatch, RootState } from "./store/store";
 import Image from "next/image";
-import { UserCard } from "./components/user/UserCard";
-import { Loader } from "./components/shared/Loader";
-import { Pill } from "./components/shared/Pill";
 import { GenreContainer } from "./components/GenreContainer";
 import { Button } from "./components/shared/Button";
 
@@ -53,7 +42,6 @@ export default function Home() {
                 Explore the magic of Spotify
               </h2>
               <hr className='border-t-2 border-gray-800 mb-4' />
-              {/* <UserCard profile={profile} loading={userLoading} /> */}
             </div>
           </div>
 
