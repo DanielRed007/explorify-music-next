@@ -8,7 +8,7 @@ interface ButtonProps {
   hoverColor?: string;
   onClick?: () => void;
   size?: "sm" | "md" | "lg";
-  href?: string; // Optional href prop for Next.js Link
+  href?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({

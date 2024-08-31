@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { Ubuntu_Mono } from "next/font/google";
 import Header from "./components/shared/Header";
+import { ErrorModal } from "./components/shared/ErrorModal";
 
 const ubuntuMono = Ubuntu_Mono({
   subsets: ["latin"],
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={ubuntuMono.className}>
         <Provider store={store}>
           <main className=''>{children}</main>
+          <ErrorModal />
         </Provider>
       </body>
     </html>
