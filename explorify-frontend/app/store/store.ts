@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import spotifyClientReducer from "./slices/spotifyClientSlice";
-import userSliceReducer from "./slices/userSlice";
+import userReducer from "./slices/userSlice";
+import modalReducer from "./slices/modalSlice";
 
 const store = configureStore({
   reducer: {
     spotiFyClient: spotifyClientReducer,
-    user: userSliceReducer,
+    user: userReducer,
+    modal: modalReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
 });
