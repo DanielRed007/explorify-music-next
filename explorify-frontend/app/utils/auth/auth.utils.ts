@@ -7,6 +7,13 @@ export const getAccessToken = () => {
   return accessToken;
 };
 
+export const getRefreshToken = () => {
+  const params = new URLSearchParams(window.location.search);
+  const refreshToken = params.get("refresh_token");
+
+  return refreshToken;
+};
+
 export const axiosRequest = <T = any>(
   url: string,
   method: string,

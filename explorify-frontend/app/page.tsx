@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "./store/store";
 import Image from "next/image";
 import { GenreContainer } from "./components/GenreContainer";
 import { Button } from "./components/shared/Button";
+import { BannerCard } from "./components/shared/BannerCard";
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
@@ -52,11 +53,49 @@ export default function Home() {
             <GenreContainer />
           </div>
 
-          <div className='rounded-md bg-green-500 p-4 text-white'>04</div>
-          <div className='rounded-md bg-green-500 p-4 text-white'>05</div>
-          <div className='rounded-md bg-green-500 p-4 text-white'>06</div>
-          <div className='rounded-md bg-green-500 p-4 text-white'>07</div>
-          <div className='rounded-md bg-green-500 p-4 text-white'>08</div>
+          <div className='rounded-md bg-gray-900 p-4 text-white'>
+            <BannerCard
+              title='Jimi Hendrix'
+              subtitle='All Along The Watchtower'
+              imageUrl='https://i0.wp.com/themindcircle.com/wp-content/uploads/2015/05/Jimi-Hendrix-Sept-17th-1970-6.jpg'
+            />
+          </div>
+          <div className='rounded-md bg-gray-900 p-4 text-white'>
+            <BannerCard
+              title='Bob Dylan'
+              subtitle='Desolation Row'
+              imageUrl='https://i0.wp.com/themindcircle.com/wp-content/uploads/2015/05/Jimi-Hendrix-Sept-17th-1970-6.jpg'
+            />
+          </div>
+          <div className='rounded-md bg-gray-900 p-4 text-white'>
+            <BannerCard
+              title='Jimi Hendrix'
+              subtitle='Highway Chile'
+              imageUrl='https://i0.wp.com/themindcircle.com/wp-content/uploads/2015/05/Jimi-Hendrix-Sept-17th-1970-8.jpg'
+            />
+          </div>
+
+          <div className='rounded-md bg-gray-900 p-4 text-white'>
+            <BannerCard
+              title='Jimi Hendrix'
+              subtitle='All Along The Watchtower'
+              imageUrl='https://i0.wp.com/themindcircle.com/wp-content/uploads/2015/05/Jimi-Hendrix-Sept-17th-1970-6.jpg'
+            />
+          </div>
+          <div className='rounded-md bg-gray-900 p-4 text-white'>
+            <BannerCard
+              title='Bob Dylan'
+              subtitle='Desolation Row'
+              imageUrl='https://i0.wp.com/themindcircle.com/wp-content/uploads/2015/05/Jimi-Hendrix-Sept-17th-1970-6.jpg'
+            />
+          </div>
+          <div className='rounded-md bg-gray-900 p-4 text-white'>
+            <BannerCard
+              title='Jimi Hendrix'
+              subtitle='Highway Chile'
+              imageUrl='https://i0.wp.com/themindcircle.com/wp-content/uploads/2015/05/Jimi-Hendrix-Sept-17th-1970-8.jpg'
+            />
+          </div>
         </div>
       </div>
     </Fragment>
