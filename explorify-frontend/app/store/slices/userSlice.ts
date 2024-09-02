@@ -1,7 +1,11 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { permanentRedirect } from "next/navigation";
 import { SpotifyUser } from "@/app/interface/user";
-import { axiosRequest, getAccessToken } from "@/app/utils/auth/auth.utils";
+import {
+  axiosRequest,
+  getAccessToken,
+  getRefreshToken,
+} from "@/app/utils/auth/auth.utils";
 import { getAxiorError } from "@/app/utils/error.utils";
 import { closeModal, openModal } from "./modalSlice";
 
@@ -24,12 +28,16 @@ const initialSpotifyUserState: SpotifyUser = {
 interface UserState {
   profile: SpotifyUser;
   userLoading: boolean;
+  accessToken: string | null;
+  refreshToken: string | null;
   userError: string | null;
 }
 
 const initialState: UserState = {
   profile: initialSpotifyUserState,
   userLoading: false,
+  accessToken: "",
+  refreshToken: "",
   userError: null,
 };
 
@@ -37,7 +45,11 @@ export const fetchUserProfile = createAsyncThunk(
   "user/fetchProfile",
   async (_, { getState, dispatch, rejectWithValue }) => {
     try {
-      const accessToken = getAccessToken();
+      const accessToken: string | null = getAccessToken();
+      const refreshToken = getRefreshToken();
+
+      dispatch(setAccessToken(accessToken));
+      dispatch(setRefreshToken(refreshToken));
 
       const response = await axiosRequest(
         "https://api.spotify.com/v1/me",
@@ -58,7 +70,7 @@ export const fetchUserProfile = createAsyncThunk(
             modalContent: {
               status: axiosError.error.status,
               message: axiosError.error.message,
-              displayButtons: false,
+              displayButtons: true,
             },
           })
         );
@@ -77,6 +89,12 @@ const userSlice = createSlice({
     resetUserProfile: (state: any) => {
       state.profile = initialState;
       state.userError = null;
+    },
+    setAccessToken(state, action: PayloadAction<string | null>) {
+      state.accessToken = action.payload;
+    },
+    setRefreshToken(state, action: PayloadAction<string | null>) {
+      state.refreshToken = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -102,5 +120,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { resetUserProfile } = userSlice.actions;
+export const { resetUserProfile, setAccessToken, setRefreshToken } =
+  userSlice.actions;
 export default userSlice.reducer;

@@ -40,11 +40,9 @@ export async function GET(req: NextRequest) {
 
     const { access_token, refresh_token } = response.data;
 
-    // Construct the absolute URL for the redirect
     const redirectUrl = `${process.env.NEXTAUTH_URL}/dashboard?access_token=${access_token}&refresh_token=${refresh_token}`;
-    console.log("Redirecting to:", redirectUrl); // For debugging purposes
-
-    return NextResponse.redirect(redirectUrl); // Use absolute URL
+    console.log("Redirecting to:", redirectUrl);
+    return NextResponse.redirect(redirectUrl);
   } catch (error) {
     console.error("Error exchanging code for tokens", error);
     return NextResponse.json(
