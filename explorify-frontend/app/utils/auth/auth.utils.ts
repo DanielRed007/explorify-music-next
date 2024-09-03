@@ -26,3 +26,8 @@ export const axiosRequest = <T = any>(
   };
   return axios.request<T>(config);
 };
+
+export const preserveQueryParameters = (basePath: string, query: any) => {
+  const queryString = new URLSearchParams(query).toString();
+  return `${basePath}?${queryString}`;
+};
