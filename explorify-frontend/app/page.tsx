@@ -53,21 +53,21 @@ export default function Home() {
             <GenreContainer />
           </div>
 
-          <div className='rounded-md bg-gray-900 p-4 text-white'>
+          <div className='rounded-md bg-green-700 p-4 text-white'>
             <BannerCard
               title='Jimi Hendrix'
               subtitle='All Along The Watchtower'
               imageUrl='https://i0.wp.com/themindcircle.com/wp-content/uploads/2015/05/Jimi-Hendrix-Sept-17th-1970-6.jpg'
             />
           </div>
-          <div className='rounded-md bg-gray-900 p-4 text-white'>
+          <div className='rounded-md bg-green-700 p-4 text-white'>
             <BannerCard
               title='Bob Dylan'
               subtitle='Desolation Row'
               imageUrl='https://i0.wp.com/themindcircle.com/wp-content/uploads/2015/05/Jimi-Hendrix-Sept-17th-1970-6.jpg'
             />
           </div>
-          <div className='rounded-md bg-gray-900 p-4 text-white'>
+          <div className='rounded-md bg-green-700 p-4 text-white'>
             <BannerCard
               title='Jimi Hendrix'
               subtitle='Highway Chile'
@@ -75,21 +75,21 @@ export default function Home() {
             />
           </div>
 
-          <div className='rounded-md bg-gray-900 p-4 text-white'>
+          <div className='rounded-md bg-green-700 p-4 text-white'>
             <BannerCard
               title='Jimi Hendrix'
               subtitle='All Along The Watchtower'
               imageUrl='https://i0.wp.com/themindcircle.com/wp-content/uploads/2015/05/Jimi-Hendrix-Sept-17th-1970-6.jpg'
             />
           </div>
-          <div className='rounded-md bg-gray-900 p-4 text-white'>
+          <div className='rounded-md bg-green-700 p-4 text-white'>
             <BannerCard
               title='Bob Dylan'
               subtitle='Desolation Row'
               imageUrl='https://i0.wp.com/themindcircle.com/wp-content/uploads/2015/05/Jimi-Hendrix-Sept-17th-1970-6.jpg'
             />
           </div>
-          <div className='rounded-md bg-gray-900 p-4 text-white'>
+          <div className='rounded-md bg-green-700 p-4 text-white'>
             <BannerCard
               title='Jimi Hendrix'
               subtitle='Highway Chile'

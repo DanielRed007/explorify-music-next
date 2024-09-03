@@ -12,7 +12,7 @@ export const BannerCard: FC<BannerCardProps> = ({
   imageUrl,
 }) => {
   return (
-    <div className='bg-gray-900 rounded-lg shadow-md overflow-hidden hover:bg-gray-800 transition-colors duration-200 max-w-sm'>
+    <div className='bg-green-900 rounded-lg shadow-md overflow-hidden hover:bg-green-950 transition-colors duration-200 max-w-sm'>
       <div className='relative'>
         {imageUrl ? (
           <img
@@ -21,7 +21,7 @@ export const BannerCard: FC<BannerCardProps> = ({
             className='w-full h-48 object-cover'
           />
         ) : (
-          <div className='w-full h-48 bg-blue-500 flex items-center justify-center'>
+          <div className='w-full h-48 bg-green-500 flex items-center justify-center'>
             <span className='text-white text-4xl font-bold'>
               {title.charAt(0)}
             </span>
@@ -30,7 +30,7 @@ export const BannerCard: FC<BannerCardProps> = ({
       </div>
       <div className='p-4'>
         <h3 className='text-white text-xl font-bold'>{title}</h3>
-        <p className='text-gray-400'>{subtitle}</p>
+        <p className='text-gray-300'>{subtitle}</p>
       </div>
     </div>
   );

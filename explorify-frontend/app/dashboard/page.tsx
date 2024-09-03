@@ -21,7 +21,6 @@ const Dashboard = () => {
 
   return (
     <Fragment>
-      <Header />
       <div className='mt-7'>
         <div className='max-w-7xl mx-auto grid grid-cols-3 gap-7'>
           <div className='rounded-md col-span-2 row-span-2 bg-green-500 p-4 text-white'>
