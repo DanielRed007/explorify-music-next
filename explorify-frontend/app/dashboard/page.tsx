@@ -1,20 +1,32 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
-import Header from "../components/shared/Header";
-import { fetchUserProfile } from "../store/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
+import { ArtistList } from "../components/shared/ArtistList";
+import {
+  fetchUserProfile,
+  fetchUserTopItems,
+} from "../store/thunks/profileThunks";
 
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { profile, userLoading, userError } = useSelector(
+  const { profile, topItems, userLoading, userError } = useSelector(
     (state: RootState) => state.user
   );
 
+  const artists = [
+    { name: "Artist 1", count: 123 },
+    { name: "Artist 2", count: 456 },
+    { name: "Artist 3", count: 789 },
+  ];
+
   useEffect(() => {
     dispatch(fetchUserProfile());
+    dispatch(fetchUserTopItems());
   }, []);
+
+  console.log({ topItems });
 
   if (userLoading) return <div>{userLoading}</div>;
   if (!profile) return <div>Loading...</div>;
@@ -38,11 +50,14 @@ const Dashboard = () => {
           <div className='rounded-md bg-green-500 p-4 text-white'></div>
           <div className='rounded-md bg-green-500 p-4 text-white'></div>
 
-          <div className='rounded-md bg-green-500 p-4 text-white'>04</div>
+          <div className='rounded-md bg-green-500 p-4 text-white'>
+            <ArtistList title='Top Artist' artists={artists} />
+          </div>
           <div className='rounded-md bg-green-500 p-4 text-white'>05</div>
           <div className='rounded-md bg-green-500 p-4 text-white'>06</div>
           <div className='rounded-md bg-green-500 p-4 text-white'>07</div>
           <div className='rounded-md bg-green-500 p-4 text-white'>08</div>
+          <div className='rounded-md bg-green-500 p-4 text-white'>09</div>
         </div>
       </div>
     </Fragment>
