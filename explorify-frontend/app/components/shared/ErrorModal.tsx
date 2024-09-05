@@ -21,8 +21,6 @@ export const ErrorModal: FC = () => {
     }
   }, [modalContent, router]);
 
-  console.log(modalContent);
-
   return (
     <Fragment>
       <Dialog

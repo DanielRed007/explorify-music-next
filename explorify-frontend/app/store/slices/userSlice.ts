@@ -8,6 +8,7 @@ import {
 } from "@/app/utils/auth/auth.utils";
 import { getAxiorError } from "@/app/utils/error.utils";
 import { closeModal, openModal } from "./modalSlice";
+import { fetchUserProfile, fetchUserTopItems } from "../thunks/profileThunks";
 
 const initialSpotifyUserState: SpotifyUser = {
   display_name: "",
@@ -27,6 +28,7 @@ const initialSpotifyUserState: SpotifyUser = {
 
 interface UserState {
   profile: SpotifyUser;
+  topItems: any;
   userLoading: boolean;
   accessToken: string | null;
   refreshToken: string | null;
@@ -35,52 +37,12 @@ interface UserState {
 
 const initialState: UserState = {
   profile: initialSpotifyUserState,
+  topItems: null,
   userLoading: false,
   accessToken: "",
   refreshToken: "",
   userError: null,
 };
-
-export const fetchUserProfile = createAsyncThunk(
-  "user/fetchProfile",
-  async (_, { getState, dispatch, rejectWithValue }) => {
-    try {
-      const accessToken: string | null = getAccessToken();
-      const refreshToken = getRefreshToken();
-
-      dispatch(setAccessToken(accessToken));
-      dispatch(setRefreshToken(refreshToken));
-
-      const response = await axiosRequest(
-        "https://api.spotify.com/v1/me",
-        "get",
-        {
-          Authorization: `Bearer ${accessToken}`,
-        }
-      );
-
-      return response.data;
-    } catch (error: any) {
-      if (error.name === "AxiosError") {
-        const axiosError: any = getAxiorError(error);
-
-        dispatch(
-          openModal({
-            type: "error",
-            modalContent: {
-              status: axiosError.error.status,
-              message: axiosError.error.message,
-              displayButtons: true,
-            },
-          })
-        );
-
-        return rejectWithValue({ redirect: true, error: axiosError });
-      }
-      return rejectWithValue(error);
-    }
-  }
-);
 
 const userSlice = createSlice({
   name: "user",
@@ -112,6 +74,24 @@ const userSlice = createSlice({
       )
       .addCase(
         fetchUserProfile.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.userLoading = false;
+          state.userError = action.payload;
+        }
+      )
+      .addCase(fetchUserTopItems.pending, (state) => {
+        state.userLoading = true;
+        state.userError = null;
+      })
+      .addCase(
+        fetchUserTopItems.fulfilled,
+        (state, action: PayloadAction<SpotifyUser>) => {
+          state.userLoading = false;
+          state.topItems = action.payload;
+        }
+      )
+      .addCase(
+        fetchUserTopItems.rejected,
         (state, action: PayloadAction<any>) => {
           state.userLoading = false;
           state.userError = action.payload;
