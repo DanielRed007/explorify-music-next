@@ -9,6 +9,7 @@ import { getAxiorError } from "@/app/utils/error.utils";
 import { openModal } from "../slices/modalSlice";
 import querystring from "querystring";
 import { ArtistList } from "@/app/components/shared/ArtistList";
+import { getArtistsListMap } from "@/app/utils/profile/profile.utils";
 
 export const fetchUserProfile = createAsyncThunk(
   "user/fetchProfile",
@@ -61,11 +62,6 @@ export const fetchUserTopItems = createAsyncThunk(
       dispatch(setAccessToken(accessToken));
       dispatch(setRefreshToken(refreshToken));
 
-      const scope = "user-top-read";
-      const params = querystring.stringify({
-        scope: scope,
-      });
-
       const responseArtists = await axiosRequest(
         `https://api.spotify.com/v1/me/top/artists`,
         "get",
@@ -74,9 +70,18 @@ export const fetchUserTopItems = createAsyncThunk(
         }
       );
 
-      console.log({ ArtistList });
+      const responseTracks = await axiosRequest(
+        `https://api.spotify.com/v1/me/top/tracks`,
+        "get",
+        {
+          Authorization: `Bearer ${accessToken}`,
+        }
+      );
 
-      return responseArtists.data;
+      return {
+        artists: getArtistsListMap(responseArtists.data.items),
+        tracks: responseTracks.data,
+      };
     } catch (error: any) {
       if (error.name === "AxiosError") {
         const axiosError: any = getAxiorError(error);

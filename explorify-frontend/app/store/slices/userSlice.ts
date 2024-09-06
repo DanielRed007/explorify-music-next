@@ -85,7 +85,7 @@ const userSlice = createSlice({
       })
       .addCase(
         fetchUserTopItems.fulfilled,
-        (state, action: PayloadAction<SpotifyUser>) => {
+        (state, action: PayloadAction<any>) => {
           state.userLoading = false;
           state.topItems = action.payload;
         }

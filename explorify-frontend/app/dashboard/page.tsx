@@ -50,10 +50,11 @@ const Dashboard = () => {
           <div className='rounded-md bg-green-500 p-4 text-white'></div>
           <div className='rounded-md bg-green-500 p-4 text-white'></div>
 
-          <div className='rounded-md bg-green-500 p-4 text-white'>
-            <ArtistList title='Top Artist' artists={artists} />
-          </div>
           <div className='rounded-md bg-green-500 p-4 text-white'>05</div>
+          <div className='rounded-md col-span-2 row-span-2 bg-green-500 p-4 text-white'>
+            <ArtistList title='Top Artist' artists={topItems.artists} />
+          </div>
+
           <div className='rounded-md bg-green-500 p-4 text-white'>06</div>
           <div className='rounded-md bg-green-500 p-4 text-white'>07</div>
           <div className='rounded-md bg-green-500 p-4 text-white'>08</div>
