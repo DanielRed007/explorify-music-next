@@ -8,18 +8,13 @@ import {
   fetchUserProfile,
   fetchUserTopItems,
 } from "../store/thunks/profileThunks";
+import { TrackList } from "../components/shared/TrackList";
 
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { profile, topItems, userLoading, userError } = useSelector(
     (state: RootState) => state.user
   );
-
-  const artists = [
-    { name: "Artist 1", count: 123 },
-    { name: "Artist 2", count: 456 },
-    { name: "Artist 3", count: 789 },
-  ];
 
   useEffect(() => {
     dispatch(fetchUserProfile());
@@ -52,13 +47,20 @@ const Dashboard = () => {
 
           <div className='rounded-md bg-green-500 p-4 text-white'>05</div>
           <div className='rounded-md col-span-2 row-span-2 bg-green-500 p-4 text-white'>
-            <ArtistList title='Top Artist' artists={topItems.artists} />
+            {topItems && (
+              <ArtistList title='Top Artist' artists={topItems.artists} />
+            )}
           </div>
 
           <div className='rounded-md bg-green-500 p-4 text-white'>06</div>
-          <div className='rounded-md bg-green-500 p-4 text-white'>07</div>
-          <div className='rounded-md bg-green-500 p-4 text-white'>08</div>
-          <div className='rounded-md bg-green-500 p-4 text-white'>09</div>
+
+          <div className='rounded-md col-span-2 row-span-2 bg-green-500 p-4 text-white'>
+            {topItems && (
+              <TrackList title='Top Artist' tracks={topItems.tracks} />
+            )}
+          </div>
+          <div className='rounded-md bg-green-500 p-4 text-white'>05</div>
+          <div className='rounded-md bg-green-500 p-4 text-white'>06</div>
         </div>
       </div>
     </Fragment>

@@ -1,8 +1,8 @@
-import { ProfileArtistsList } from "@/app/interface/profile";
+import { TopArtists } from "@/app/interface/profile";
 
 interface ArtistListProps {
   title: string;
-  artists: ProfileArtistsList[];
+  artists: TopArtists[];
 }
 
 export const ArtistList: React.FC<ArtistListProps> = ({ title, artists }) => {
