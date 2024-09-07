@@ -9,7 +9,10 @@ import { getAxiorError } from "@/app/utils/error.utils";
 import { openModal } from "../slices/modalSlice";
 import querystring from "querystring";
 import { ArtistList } from "@/app/components/shared/ArtistList";
-import { getArtistsListMap } from "@/app/utils/profile/profile.utils";
+import {
+  getArtistsListMap,
+  getTrackListMap,
+} from "@/app/utils/profile/profile.utils";
 
 export const fetchUserProfile = createAsyncThunk(
   "user/fetchProfile",
@@ -77,10 +80,10 @@ export const fetchUserTopItems = createAsyncThunk(
           Authorization: `Bearer ${accessToken}`,
         }
       );
-
+      console.log({ responseTracks });
       return {
         artists: getArtistsListMap(responseArtists.data.items),
-        tracks: responseTracks.data,
+        tracks: getTrackListMap(responseTracks.data.items),
       };
     } catch (error: any) {
       if (error.name === "AxiosError") {
