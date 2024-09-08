@@ -22,3 +22,16 @@ export const getTrackListMap = (tracks: SpotifyTrack[]): TopTrack[] => {
     duration: mapMilisecondsToMinutes(track.duration_ms),
   }));
 };
+
+export const getArtistGenres = (artists: SpotifyArtist[]) => {
+  let artistsGenres: string[] = [];
+  const genresList = artists.reduce(
+    (acc, val) => acc.concat(val.genres),
+    artistsGenres
+  );
+  const filteredList = genresList
+    .filter((genre, index) => genresList.indexOf(genre) === index)
+    .slice(0, 20);
+
+  return filteredList;
+};

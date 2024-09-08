@@ -1,13 +1,5 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { permanentRedirect } from "next/navigation";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SpotifyUser } from "@/app/interface/user";
-import {
-  axiosRequest,
-  getAccessToken,
-  getRefreshToken,
-} from "@/app/utils/auth/auth.utils";
-import { getAxiorError } from "@/app/utils/error.utils";
-import { closeModal, openModal } from "./modalSlice";
 import { fetchUserProfile, fetchUserTopItems } from "../thunks/profileThunks";
 
 const initialSpotifyUserState: SpotifyUser = {
