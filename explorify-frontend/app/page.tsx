@@ -1,26 +1,12 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "./store/store";
+import { Fragment } from "react";
 import Image from "next/image";
 import { GenreContainer } from "./components/GenreContainer";
 import { Button } from "./components/shared/Button";
 import { BannerCard } from "./components/shared/BannerCard";
 
 export default function Home() {
-  const dispatch = useDispatch<AppDispatch>();
-  const { profile, userLoading, userError } = useSelector(
-    (state: RootState) => state.user
-  );
-  const { accessToken, clientLoading, clientError } = useSelector(
-    (state: RootState) => state.spotiFyClient
-  );
-
-  useEffect(() => {}, []);
-
-  useEffect(() => {}, []);
-
   return (
     <Fragment>
       <div className='mt-7'>
@@ -49,9 +35,7 @@ export default function Home() {
           <div className='rounded-md bg-green-500 p-4 text-white'>
             <Button text='Login' href='/api/auth/login' />
           </div>
-          <div className='rounded-md bg-green-500 p-4 text-white'>
-            <GenreContainer />
-          </div>
+          <div className='rounded-md bg-green-500 p-4 text-white'></div>
 
           <div className='rounded-md bg-green-700 p-4 text-white'>
             <BannerCard
