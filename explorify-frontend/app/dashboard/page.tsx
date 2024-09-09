@@ -10,6 +10,7 @@ import {
 } from "../store/thunks/profileThunks";
 import { TrackList } from "../components/shared/TrackList";
 import { GenreContainer } from "../components/GenreContainer";
+import { ArtistImage } from "../components/shared/ArtistImage";
 
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -46,7 +47,14 @@ const Dashboard = () => {
           </div>
           <div className='rounded-md bg-green-500 p-4 text-white'></div>
 
-          <div className='rounded-md bg-green-500 p-4 text-white'>05</div>
+          <div className='rounded-md bg-green-500 p-4 text-white'>
+            {topItems && (
+              <ArtistImage
+                title='Top Artist'
+                artists={topItems.artistsImages}
+              />
+            )}
+          </div>
           <div className='rounded-md col-span-2 row-span-2 bg-green-500 p-4 text-white'>
             {topItems && (
               <ArtistList title='Top Artist' artists={topItems.artists} />
