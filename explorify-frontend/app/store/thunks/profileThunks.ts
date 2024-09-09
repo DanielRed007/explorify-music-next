@@ -11,7 +11,9 @@ import querystring from "querystring";
 import { ArtistList } from "@/app/components/shared/ArtistList";
 import {
   getArtistGenres,
+  getArtistImages,
   getArtistsListMap,
+  getTrackImages,
   getTrackListMap,
 } from "@/app/utils/profile/profile.utils";
 
@@ -86,6 +88,8 @@ export const fetchUserTopItems = createAsyncThunk(
         artists: getArtistsListMap(responseArtists.data.items),
         tracks: getTrackListMap(responseTracks.data.items),
         genres: getArtistGenres(responseArtists.data.items),
+        artistsImages: getArtistImages(responseArtists.data.items, 160),
+        tracksImages: getTrackImages(responseTracks.data.items, 160),
       };
     } catch (error: any) {
       if (error.name === "AxiosError") {

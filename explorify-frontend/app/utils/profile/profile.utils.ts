@@ -35,3 +35,23 @@ export const getArtistGenres = (artists: SpotifyArtist[]) => {
 
   return filteredList;
 };
+
+export const getTrackImages = (tracks: SpotifyTrack[], size: number) => {
+  const trackImage = (imageList: any) =>
+    imageList?.album.images.find((img: any) => img.width === size);
+
+  return tracks.map((track) => ({
+    name: track.name,
+    image: trackImage(track),
+  }));
+};
+
+export const getArtistImages = (artists: SpotifyArtist[], size: number) => {
+  const trackImage = (imageList: any) =>
+    imageList.images.find((img: any) => img.width === size);
+
+  return artists.map((artist) => ({
+    image: trackImage(artist),
+    name: artist.name,
+  }));
+};

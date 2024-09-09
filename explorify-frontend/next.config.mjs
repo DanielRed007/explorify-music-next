@@ -6,7 +6,7 @@ dotenv.config();
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['platform-lookaside.fbsbx.com'],
+    domains: ['platform-lookaside.fbsbx.com', 'i.scdn.co'],
   },
 };
 
